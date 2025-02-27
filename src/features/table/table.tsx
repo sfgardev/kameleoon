@@ -1,45 +1,15 @@
-import { ComponentPropsWithoutRef, useEffect, useState } from 'react'
+import { ComponentPropsWithoutRef } from 'react'
 import s from './table.module.scss'
-import { SiteModel, sitesApi } from '../../entities/site'
-import { TestModel, testsApi } from '../../entities/test'
+import { SiteModel } from '../../entities/site'
+import { TestModel } from '../../entities/test'
 import { TableRow } from './table-row.tsx'
 import cn from 'classnames'
 
-type Props = {} & ComponentPropsWithoutRef<'table'>
+type Props = {
+  sites: Array<TestModel & { url: SiteModel['url'] }>
+} & ComponentPropsWithoutRef<'table'>
 
-export const Table = ({ className, ...props }: Props) => {
-  const [sites, setSites] = useState<
-    Array<TestModel & { url: SiteModel['url'] }>
-  >([])
-
-  useEffect(() => {
-    ;(async () => {
-      try {
-        const [sitesResponse, testsResponse] = await Promise.all([
-          sitesApi.getAll(),
-          testsApi.getAll(),
-        ])
-
-        const urlBySiteIdDict = sitesResponse.data.reduce<
-          Record<number, SiteModel['url']>
-        >((dict, site) => {
-          dict[site.id] = site.url
-          return dict
-        }, {})
-
-        setSites(
-          testsResponse.data.map((test) => ({
-            ...test,
-
-            url: urlBySiteIdDict[test.siteId],
-          }))
-        )
-      } catch (error) {
-        console.error(error)
-      }
-    })()
-  }, [])
-
+export const Table = ({ className, sites, ...props }: Props) => {
   return (
     <table className={cn(s.table, className)} {...props}>
       <thead>
