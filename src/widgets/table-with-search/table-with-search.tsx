@@ -1,42 +1,10 @@
 import { SearchInput } from '../../features/search-input'
 import { Table } from '../../features/table'
 import s from './table-with-search.module.scss'
-import { useEffect, useState } from 'react'
-import { TestModel, testsApi } from '../../entities/test'
-import { SiteModel, sitesApi } from '../../entities/site'
+import { useSites } from './useSites.ts'
 
 export const TableWithSearch = () => {
-  const [sites, setSites] = useState<
-    Array<TestModel & { url: SiteModel['url'] }>
-  >([])
-
-  useEffect(() => {
-    ;(async () => {
-      try {
-        const [sitesResponse, testsResponse] = await Promise.all([
-          sitesApi.getAll(),
-          testsApi.getAll(),
-        ])
-
-        const urlBySiteIdDict = sitesResponse.data.reduce<
-          Record<number, SiteModel['url']>
-        >((dict, site) => {
-          dict[site.id] = site.url
-          return dict
-        }, {})
-
-        setSites(
-          testsResponse.data.map((test) => ({
-            ...test,
-
-            url: urlBySiteIdDict[test.siteId],
-          }))
-        )
-      } catch (error) {
-        console.error(error)
-      }
-    })()
-  }, [])
+  const { sites } = useSites()
 
   return (
     <div className={s.tableWithSearch}>
