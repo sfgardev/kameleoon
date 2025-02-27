@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react'
 import { TestModel, testsApi } from '../../entities/test'
 import { SiteModel, sitesApi } from '../../entities/site'
 
+const formatUrl = (url: string) => {
+  const pattern = /^(?:https?:\/\/)?(?:www\.)?/
+  return url.replace(pattern, '')
+}
+
 export const useSites = () => {
   const [sites, setSites] = useState<
     Array<TestModel & { url: SiteModel['url'] }>
@@ -26,7 +31,7 @@ export const useSites = () => {
           testsResponse.data.map((test) => ({
             ...test,
 
-            url: urlBySiteIdDict[test.siteId],
+            url: formatUrl(urlBySiteIdDict[test.siteId]),
           }))
         )
       } catch (error) {

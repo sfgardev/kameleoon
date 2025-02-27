@@ -13,11 +13,6 @@ const getRandomColor = (colors: string[]) => {
   return colors[Math.floor(Math.random() * colors.length)]
 }
 
-const formatUrl = (url: string) => {
-  const pattern = /^(?:https?:\/\/)?(?:www\.)?/
-  return url.replace(pattern, '')
-}
-
 const getColorByStatus = (status: TestModelStatus) => {
   const colors = {
     [TestModelStatus.DRAFT]: '#5C5C5C',
@@ -40,7 +35,7 @@ export const TableRow = ({ site }: Props) => {
       </td>
       <td>{site.type}</td>
       <td style={{ color: getColorByStatus(site.status) }}>{site.status}</td>
-      <td>{formatUrl(site.url)}</td>
+      <td>{site.url}</td>
       <td>
         {site.status === TestModelStatus.DRAFT ? (
           <Button variant="secondary">Finalize</Button>

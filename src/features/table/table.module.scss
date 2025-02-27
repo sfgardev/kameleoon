@@ -67,3 +67,9 @@ tr td:first-child {
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
+
+.sortCol {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
