@@ -61,7 +61,7 @@ export const Table = ({ className, sites, sort, onSort, ...props }: Props) => {
       </thead>
       <tbody>
         {sites.map((site) => (
-          <TableRow key={site.id} site={site} />
+          <TableRow key={site.id} {...site} />
         ))}
       </tbody>
     </table>

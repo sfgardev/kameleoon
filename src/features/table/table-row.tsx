@@ -1,10 +1,15 @@
 import { Button } from '../../shared/ui/button'
-import { TestModel, TestModelStatus } from '../../entities/test'
-import { SiteModel } from '../../entities/site'
+import { TestModelStatus, TestModelType } from '../../entities/test'
 import s from './table.module.scss'
+import { memo } from 'react'
+import { ROUTES } from '../../shared/lib'
 
 type Props = {
-  site: TestModel & { url: SiteModel['url'] }
+  id: number
+  name: string
+  type: TestModelType
+  status: TestModelStatus
+  url: string
 }
 
 const colors = ['#E14165', '#C2C2FF', '#8686FF']
@@ -23,7 +28,7 @@ const getColorByStatus = (status: TestModelStatus) => {
   return colors[status]
 }
 
-export const TableRow = ({ site }: Props) => {
+export const TableRow = memo(({ id, name, type, status, url }: Props) => {
   return (
     <tr>
       <td>
@@ -31,18 +36,20 @@ export const TableRow = ({ site }: Props) => {
           className={s.rightBorder}
           style={{ backgroundColor: getRandomColor(colors) }}
         ></span>
-        {site.name}
+        {name}
       </td>
-      <td>{site.type}</td>
-      <td style={{ color: getColorByStatus(site.status) }}>{site.status}</td>
-      <td>{site.url}</td>
+      <td>{type}</td>
+      <td style={{ color: getColorByStatus(status) }}>{status}</td>
+      <td>{url}</td>
       <td>
-        {site.status === TestModelStatus.DRAFT ? (
-          <Button variant="secondary">Finalize</Button>
+        {status === TestModelStatus.DRAFT ? (
+          <Button to={ROUTES.finalize(id)} variant="secondary">
+            Finalize
+          </Button>
         ) : (
-          <Button>Results</Button>
+          <Button to={ROUTES.results(id)}>Results</Button>
         )}
       </td>
     </tr>
   )
-}
+})
