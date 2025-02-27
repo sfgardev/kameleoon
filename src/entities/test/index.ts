@@ -1,2 +1,2 @@
 export { testsApi } from './api'
-export { type TestModel } from './model/types'
+export { type TestModel, TestModelType, TestModelStatus } from './model/types'
