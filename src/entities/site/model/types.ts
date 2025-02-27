@@ -1,0 +1,1 @@
+export type SiteModel = { id: number; url: string }
