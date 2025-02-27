@@ -1,0 +1,28 @@
+.button {
+  font-family: Montserrat, serif;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 0.75rem;
+  line-height: 1.22;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+
+.primary {
+  background-color: #2ee5ac;
+
+  &:hover {
+    background-color: #82e1c4;
+  }
+}
+
+.secondary {
+  background-color: #7d7d7d;
+
+  &:hover {
+    background-color: #938d8d;
+  }
+}
