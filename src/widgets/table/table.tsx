@@ -3,10 +3,11 @@ import s from './table.module.scss'
 import { SiteModel, sitesApi } from '../../entities/site'
 import { TestModel, testsApi } from '../../entities/test'
 import { TableRow } from './table-row.tsx'
+import cn from 'classnames'
 
 type Props = {} & ComponentPropsWithoutRef<'table'>
 
-export const Table = ({ ...props }: Props) => {
+export const Table = ({ className, ...props }: Props) => {
   const [sites, setSites] = useState<
     Array<TestModel & { url: SiteModel['url'] }>
   >([])
@@ -40,7 +41,7 @@ export const Table = ({ ...props }: Props) => {
   }, [])
 
   return (
-    <table className={s.table} {...props}>
+    <table className={cn(s.table, className)} {...props}>
       <thead>
         <tr>
           <th style={{ width: '400px' }}>Name</th>
