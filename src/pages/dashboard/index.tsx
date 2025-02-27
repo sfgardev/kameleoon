@@ -1,11 +1,14 @@
 import { Container } from '../../shared/ui/container'
 import { Title } from '../../shared/ui/title'
+import { Layout } from '../../shared/ui/layout'
 
 const Dashboard = () => {
   return (
-    <Container>
-      <Title>Dashboard</Title>
-    </Container>
+    <Layout>
+      <Container>
+        <Title>Dashboard</Title>
+      </Container>
+    </Layout>
   )
 }
 
