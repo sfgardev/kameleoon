@@ -9,8 +9,8 @@ function App() {
     <Routes>
       <Route path={ROUTES.root} element={<Navigate to={ROUTES.dashboard} />} />
       <Route path={ROUTES.dashboard} element={<Dashboard />} />
-      <Route path={ROUTES.results} element={<Results />} />
-      <Route path={ROUTES.finalize} element={<Finalize />} />
+      <Route path={ROUTES.results()} element={<Results />} />
+      <Route path={ROUTES.finalize()} element={<Finalize />} />
       <Route path="*" element="Page Not Found" />
     </Routes>
   )
