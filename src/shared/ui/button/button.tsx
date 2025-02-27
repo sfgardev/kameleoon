@@ -1,12 +1,21 @@
 import s from './button.module.scss'
 import { ComponentPropsWithoutRef } from 'react'
 import cn from 'classnames'
+import { Link, LinkProps } from 'react-router'
 
 type Variant = 'primary' | 'secondary'
 
-type Props = {
+type ButtonProps = {
   variant?: Variant
 } & ComponentPropsWithoutRef<'button'>
+
+type LinkButtonProps = {
+  to: string
+  variant?: Variant
+} & ComponentPropsWithoutRef<'a'> &
+  LinkProps
+
+type Props = ButtonProps | LinkButtonProps
 
 export const Button = ({
   className,
@@ -19,8 +28,18 @@ export const Button = ({
     secondary: s.secondary,
   }
 
+  const classes = cn(s.button, variants[variant], className)
+
+  if ('to' in props) {
+    return (
+      <Link className={classes} {...props}>
+        {children}
+      </Link>
+    )
+  }
+
   return (
-    <button className={cn(s.button, variants[variant], className)} {...props}>
+    <button className={classes} {...props}>
       {children}
     </button>
   )
